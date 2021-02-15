@@ -1,29 +1,21 @@
-function clock(){
+setInterval(setClock, 1000)
 
-    var day, hour, minute, second;
-    day = new Date;
+const hourHand = document.querySelector('[data-hour-hand]')
+const minuteHand = document.querySelector('[data-minute-hand]')
+const secondHand = document.querySelector('[data-second-hand]')
 
-    hour = 30 * ((day.getHours() % 12) + day.getMinutes() / 60);
-    minute = 6 * day.getMinutes();
-    second = 6 * day.getSeconds();
-    second_tail = 
-    setAttribut("hour", hour)
-    setAttribut("minute", minute)
-    setAttribut("second", second)
-    setAttribut("second_tail", second - 1)
-    setTimeout(clock, 1000)
-
+function setClock() {
+  const currentDate = new Date()
+  const secondsRatio = currentDate.getSeconds() / 60
+  const minutesRatio = (secondsRatio + currentDate.getMinutes()) / 60
+  const hoursRatio = (minutesRatio + currentDateq.getHours()) / 12
+  setRotation(secondHand, secondsRatio)
+  setRotation(minuteHand, minutesRatio)
+  setRotation(hourHand, hoursRatio)
 }
 
-function setAttribut(id, val){
-    var  v = "rotate(" + val + ", 300, 150) ";
-    document.getElementById(id).setAttribute("transform", v);
-
-
+function setRotation(element, rotationRatio) {
+  element.style.setProperty('--rotation', rotationRatio * 360)
 }
 
-
-
-
-
-window.load = clock();
+setClock()
